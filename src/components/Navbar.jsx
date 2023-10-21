@@ -6,11 +6,12 @@ const Navbar = (props) => {
           <>
             <div className="flex flex-row items-center mr-5 ">
               <h1>Hi,</h1>
-              <p>Yusuf</p>
+              <p>{localStorage.getItem("name")}</p>
             </div>
             <a href="/" className="flex items-center justify-center">
               <img
-                className="rounded-full h-10 w-10 hover:opacity-20 transition-all ease-in-out "
+                src={localStorage.getItem("photo")}
+                className="rounded-full h-10 w-10 hover:opacity-20 transition-all ease-in-out"
                 alt="user"
               />
               <div

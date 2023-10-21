@@ -11,7 +11,7 @@ const Hero = () => {
         <div className="w-full  xs:h-full h-[60%] bg-white flex flex-col justify-center items-center ">
           <WordArea />
         </div>
-        <div className="w-full xs:h-full h-[40%] bg-red-300 flex flex-col justify-center items-center">
+        <div className="w-full xs:h-full h-[40%] bg-white flex flex-col justify-center items-center">
           <SubmitArea />
         </div>
       </div>

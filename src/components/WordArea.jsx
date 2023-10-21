@@ -6,7 +6,9 @@ const WordArea = () => {
   const [words, setWords] = useState([]);
 
   const fetchWords = async () => {
-    const querySnapshot = await getDocs(collection(db, "words"));
+    const querySnapshot = await getDocs(
+      collection(db, `${localStorage.getItem("name")}-words`)
+    );
     const newData = querySnapshot.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
@@ -15,7 +17,7 @@ const WordArea = () => {
   };
 
   const deleteWord = async (id) => {
-    const reference = doc(db, "words", id);
+    const reference = doc(db, `${localStorage.getItem("name")}-words`, id);
     await deleteDoc(reference);
     fetchWords();
   };
@@ -26,11 +28,11 @@ const WordArea = () => {
 
   return (
     <div className="w-[60%] xs:h-[80%] h-[60%] bg-gray-500 flex flex-col items-center">
-      <ul className="h-full w-full bg-red-400 items-center flex flex-col gap-[2px] scroll-smooth overflow-y-scroll">
+      <ul className="h-full w-full bg-white outline items-center flex flex-col gap-[2px] scroll-smooth overflow-y-scroll">
         {words?.map((word, i) => (
           <a
             key={i}
-            className="w-full xs:h-[5%] h-[10%] bg-green-400 cursor-pointer"
+            className="w-full xs:h-[5%] h-[10%] bg-yellow-300 cursor-pointer"
             onClick={() => deleteWord(word.id)}
           >
             <li key={i}>{word.word}</li>
