@@ -1,27 +1,32 @@
 import { useState, useEffect } from "react";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase";
-const WordArea = () => {
+
+const WordArea = ({ shouldReload }) => {
   const [words, setWords] = useState([]);
 
-  const fetchPost = async () => {
-    await getDocs(collection(db, "words")).then((querySnapshot) => {
-      const newData = querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setWords(newData);
-    });
+  const fetchWords = async () => {
+    const querySnapshot = await getDocs(collection(db, "words"));
+    const newData = querySnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    setWords(newData);
   };
-
-  useEffect(() => {
-    fetchPost();
-  }, []);
 
   const deleteWord = async (id) => {
     const reference = doc(db, "words", id);
     await deleteDoc(reference);
+    fetchWords();
   };
+
+  useEffect(() => {
+    if (shouldReload) {
+      console.log("WordArea reloaded");
+    } else {
+      fetchWords();
+    }
+  }, [shouldReload]);
 
   return (
     <div className="w-[60%] xs:h-[80%] h-[60%] bg-gray-500 flex flex-col items-center">
@@ -30,7 +35,7 @@ const WordArea = () => {
           <a
             key={i}
             className="w-full xs:h-[5%] h-[10%] bg-green-400 cursor-pointer"
-            onClick={deleteWord}
+            onClick={() => deleteWord(word.id)}
           >
             <li key={i}>{word.word}</li>
           </a>

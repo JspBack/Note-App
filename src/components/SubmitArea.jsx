@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { addDoc, collection, setDoc } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase";
 
 const SubmitArea = () => {
@@ -18,17 +18,10 @@ const SubmitArea = () => {
         word: word,
       });
       alert("Word Saved👍", docRef.id);
+      window.location.reload();
     } catch (e) {
       alert("Error adding document: ", e);
     }
-
-    // addDoc(userCollectionRef, { word: word })
-    //   .then(() => {
-    //     alert("Mesajınız gönderildi👍");
-    //   })
-    //   .catch((error) => {
-    //     alert(error.message);
-    //   });
 
     setword("");
   };
