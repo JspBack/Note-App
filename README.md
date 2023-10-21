@@ -1,4 +1,4 @@
-# A note app wit fireabse/firestore/auth
+# A note app wit fireabse/firestore/auth tailwind
 
 ## Getting Started
 
