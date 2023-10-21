@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase";
 
-const WordArea = ({ shouldReload }) => {
+const WordArea = () => {
   const [words, setWords] = useState([]);
 
   const fetchWords = async () => {
@@ -21,12 +21,8 @@ const WordArea = ({ shouldReload }) => {
   };
 
   useEffect(() => {
-    if (shouldReload) {
-      console.log("WordArea reloaded");
-    } else {
-      fetchWords();
-    }
-  }, [shouldReload]);
+    fetchWords();
+  }, []);
 
   return (
     <div className="w-[60%] xs:h-[80%] h-[60%] bg-gray-500 flex flex-col items-center">
