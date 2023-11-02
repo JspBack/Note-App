@@ -4,6 +4,7 @@ import { db } from "../firebase";
 
 const WordArea = () => {
   const [words, setWords] = useState([]);
+  const [showMessage, setShowMessage] = useState(false);
 
   const fetchWords = async () => {
     const querySnapshot = await getDocs(
@@ -20,6 +21,12 @@ const WordArea = () => {
     const reference = doc(db, `${localStorage.getItem("name")}-words`, id);
     await deleteDoc(reference);
     fetchWords();
+    setShowMessage(true);
+
+    setTimeout(() => {
+      setShowMessage(false);
+      window.location.reload();
+    }, 1000);
   };
 
   useEffect(() => {
@@ -27,7 +34,13 @@ const WordArea = () => {
   }, []);
 
   return (
-    <div className="w-[60%] xs:h-[80%] h-[60%] bg-gray-500 flex flex-col items-center">
+    <div className="w-[60%] xs:h-[90%] bg-white h-[80%] flex flex-col items-center">
+      {showMessage && (
+        <div className="bg-red-500 text-white p-2 rounded-lg mb-2  ">
+          Word deleted! Refreshing...
+        </div>
+      )}
+
       <ul className="h-full w-full bg-white outline items-center flex flex-col gap-[2px] scroll-smooth overflow-x-hidden overflow-y-scroll">
         {words?.map((word, i) => (
           <a

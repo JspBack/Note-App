@@ -9,10 +9,10 @@ const Login = () => {
     signInWithGoogle();
   };
   return (
-    <div className="text-white w-screen h-screen flex flex-col">
+    <div className="text-white w-full h-screen flex flex-col overflow-hidden">
       <Navbar />
       <div className="h-full w-full flex flex-col justify-center items-center">
-        <img src={bg} className="rounded-lg relative flex bottom-5 " />
+        <img src={bg} className="rounded-lg flex mb-5 " />
         <h1 className="my-2">WELCUM TO NOTE APP</h1>
         <button className="outline rounded-lg px-4 hover:bg-yellow-300 ease-in-out transition-all hover:text-black   ">
           {localStorage.getItem("name") ? (
